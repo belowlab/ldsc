@@ -1,5 +1,5 @@
 
-# LDSC (LD SCore) `v2.2.2`
+# LDSC (LD SCore) `v2.2.0`
 
 `ldsc` is a command line tool for estimating heritability and genetic correlation from GWAS summary statistics. `ldsc` also computes LD Scores.
 
