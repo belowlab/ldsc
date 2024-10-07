@@ -33,7 +33,7 @@ class LDSCconfig(ParserConfig):
             "--rg",
             default=None,
             type=Path,
-            help="Comma-separated list of prefixes of .chisq filed for genetic correlation estimation.",
+            help="File path to a (gzipped) file used for genetic correlation estimation. Can be specified multiple times.",
             action="append",
         )
 
