@@ -379,7 +379,7 @@ def cell_type_specific(args):
 
     df_results = pd.DataFrame(data=results_data, columns=results_columns)
     df_results.sort_values(by="Coefficient_P_value", inplace=True)
-    df_results.to_csv(args.out + ".cell_type_results.txt", sep="\t", index=False)
+    df_results.to_csv(str(args.out) + ".cell_type_results.txt", sep="\t", index=False)
     logger.info(f"Results printed to {args.out}.cell_type_results.tx")
 
 
