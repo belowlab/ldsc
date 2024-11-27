@@ -22,7 +22,7 @@ def read_csv(fh, **kwargs):
 
 def sub_chr(filepath: Path, suffix: str) -> Path:
     """Substitute chr for @, else append chr to the end of str."""
-
+    filepath = Path(filepath)
     if filepath.is_dir():
         return filepath / f"{suffix}"
     else:
