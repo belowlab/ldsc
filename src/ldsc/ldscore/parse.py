@@ -310,6 +310,7 @@ def __ID_List_Factory__(colnames, keepcol, fname_end, header=None, usecols=None)
             self.n = len(self.df)
 
         def __read__(self, fname):
+            fname = Path(fname)
             end = self.__fname_end__
             if end and fname.suffix != end:
                 raise ValueError("{f} filename must end in {f}".format(f=end))
