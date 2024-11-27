@@ -466,7 +466,7 @@ def estimate_h2(args) -> reg.Hsq:
         df_results = hsqhat._overlap_output(
             ref_ld_cnames, overlap_matrix, M_annot, M_tot, args.print_coefficients
         )
-        df_results.to_csv(args.out + ".results", sep="\t", index=False)
+        df_results.to_csv(str(args.out) + ".results", sep="\t", index=False)
         logger.info(f"Results printed to {args.out}.results")
 
     return hsqhat
