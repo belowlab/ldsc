@@ -732,7 +732,7 @@ def ldscore(args):
         ldscore_colnames = [y + col_prefix + scale_suffix for y in annot_colnames]
 
     # print .ldscore. Output columns: CHR, BP, RS, [LD Scores]
-    out_fname = args.out.name + "." + file_suffix + ".ldscore"
+    out_fname = str(args.out) + "." + file_suffix + ".ldscore"
     new_colnames = geno_array.colnames + ldscore_colnames
     df = pd.DataFrame.from_records(np.c_[geno_array.df, lN])
     df.columns = new_colnames
@@ -763,12 +763,12 @@ def ldscore(args):
     l2_suffix = ".gz"
     logger.info(f"Writing LD Scores for {len(df)} SNPs to {out_fname}.gz")
     df.drop(["CM", "MAF"], axis=1).to_csv(
-        out_fname,
+        f"{out_fname}.gz",
         sep="\t",
         header=True,
         index=False,
         float_format="%.3f",
-        compression="gzip",
+        compression="gzip"
     )
     if annot_matrix is not None:
         M = np.atleast_1d(np.squeeze(np.asarray(np.sum(annot_matrix, axis=0))))
