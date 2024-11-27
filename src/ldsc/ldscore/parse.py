@@ -233,9 +233,10 @@ def annot(fh_list, num=None, frqfile=None):
             if frqfile is not None:
                 df_annot_chr_list = [
                     annot_parser(
-                        sub_chr(fh, f"{chrom}{annot_suffix[i]}{annot_compression[i]}"),
+                        sub_chr(fh, f"{chrom}{annot_suffix[i]}"),
+                        annot_compression[i],
                         sub_chr(frqfile, f"{chrom}{frq_suffix}"),
-                        frq_compression,
+                        frq_compression
                     )
                     for i, fh in enumerate(fh_list)
                 ]
