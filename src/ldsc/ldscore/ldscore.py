@@ -668,7 +668,7 @@ def ldscore(args):
         keep_indivs = None
 
     # read genotype array
-    logger.info("Reading genotypes from {array_file}")
+    logger.info(f"Reading genotypes from {array_file}")
     geno_array = array_obj(
         array_file,
         n,
