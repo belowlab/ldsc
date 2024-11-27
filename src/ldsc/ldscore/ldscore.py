@@ -1,3 +1,4 @@
+from pathlib import Path
 from itertools import product
 import logging
 import numpy as np
@@ -286,6 +287,7 @@ class PlinkBEDFile(__GenotypeArrayInMemory__):
         )
 
     def __read__(self, fname, m, n):
+        fname = Path(fname)
         if fname.suffix != ".bed":
             raise ValueError(".bed filename must end in .bed")
 
