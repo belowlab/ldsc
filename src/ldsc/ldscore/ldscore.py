@@ -752,7 +752,7 @@ def ldscore(args):
         )
 
         print_snps.columns = ["SNP"]
-        df = df.iloc[df.SNP.isin(print_snps.SNP), :]
+        df = df.loc[df.SNP.isin(print_snps.SNP), :]
         if len(df) == 0:
             raise ValueError("After merging with --print-snps, no SNPs remain.")
         else:
