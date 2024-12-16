@@ -59,4 +59,4 @@ def make_annot_files(args) -> None:
     df_annot.fillna(0, inplace=True)
     df_annot = df_annot[["ANNOT"]].astype(int)
 
-    df_annot.to_csv(args.annot, sep="\t", index=False, compression="infer")
+    df_annot.to_csv(args.annot_file, sep="\t", index=False, compression="infer")

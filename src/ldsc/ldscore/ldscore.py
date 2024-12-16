@@ -1,3 +1,4 @@
+from pathlib import Path
 from itertools import product
 import logging
 import numpy as np
@@ -286,6 +287,7 @@ class PlinkBEDFile(__GenotypeArrayInMemory__):
         )
 
     def __read__(self, fname, m, n):
+        fname = Path(fname)
         if fname.suffix != ".bed":
             raise ValueError(".bed filename must end in .bed")
 
@@ -666,7 +668,7 @@ def ldscore(args):
         keep_indivs = None
 
     # read genotype array
-    logger.info("Reading genotypes from {array_file}")
+    logger.info(f"Reading genotypes from {array_file}")
     geno_array = array_obj(
         array_file,
         n,
@@ -730,7 +732,7 @@ def ldscore(args):
         ldscore_colnames = [y + col_prefix + scale_suffix for y in annot_colnames]
 
     # print .ldscore. Output columns: CHR, BP, RS, [LD Scores]
-    out_fname = args.out.name + "." + file_suffix + ".ldscore"
+    out_fname = str(args.out) + "." + file_suffix + ".ldscore"
     new_colnames = geno_array.colnames + ldscore_colnames
     df = pd.DataFrame.from_records(np.c_[geno_array.df, lN])
     df.columns = new_colnames
@@ -750,7 +752,7 @@ def ldscore(args):
         )
 
         print_snps.columns = ["SNP"]
-        df = df.iloc[df.SNP.isin(print_snps.SNP), :]
+        df = df.loc[df.SNP.isin(print_snps.SNP), :]
         if len(df) == 0:
             raise ValueError("After merging with --print-snps, no SNPs remain.")
         else:
@@ -761,12 +763,12 @@ def ldscore(args):
     l2_suffix = ".gz"
     logger.info(f"Writing LD Scores for {len(df)} SNPs to {out_fname}.gz")
     df.drop(["CM", "MAF"], axis=1).to_csv(
-        out_fname,
+        f"{out_fname}.gz",
         sep="\t",
         header=True,
         index=False,
         float_format="%.3f",
-        compression="gzip",
+        compression="gzip"
     )
     if annot_matrix is not None:
         M = np.atleast_1d(np.squeeze(np.asarray(np.sum(annot_matrix, axis=0))))
@@ -779,14 +781,12 @@ def ldscore(args):
         M_5_50 = [np.sum(geno_array.maf > 0.05)]
 
     # print .M
-    fout_M = open(args.out + "." + file_suffix + ".M", "wb")
-    print("\t".join(map(str, M)), file=fout_M)
-    fout_M.close()
+    with open(f"{args.out}.{file_suffix}.M", "wb") as fout_M:
+        fout_M.write("\t".join(map(str, M)).encode() + b'\n')
 
     # print .M_5_50
-    fout_M_5_50 = open(args.out + "." + file_suffix + ".M_5_50", "wb")
-    print("\t".join(map(str, M_5_50)), file=fout_M_5_50)
-    fout_M_5_50.close()
+    with open(f"{args.out}.{file_suffix}.M_5_50", "wb") as fout_M_5_50:
+        fout_M_5_50.write("\t".join(map(str, M_5_50)).encode() + b'\n')
 
     # print annot matrix
     if (args.cts_bin is not None) and not args.no_print_annot:

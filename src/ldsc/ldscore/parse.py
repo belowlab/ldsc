@@ -22,7 +22,7 @@ def read_csv(fh, **kwargs):
 
 def sub_chr(filepath: Path, suffix: str) -> Path:
     """Substitute chr for @, else append chr to the end of str."""
-
+    filepath = Path(filepath)
     if filepath.is_dir():
         return filepath / f"{suffix}"
     else:
@@ -233,9 +233,10 @@ def annot(fh_list, num=None, frqfile=None):
             if frqfile is not None:
                 df_annot_chr_list = [
                     annot_parser(
-                        sub_chr(fh, f"{chrom}{annot_suffix[i]}{annot_compression[i]}"),
+                        sub_chr(fh, f"{chrom}{annot_suffix[i]}"),
+                        annot_compression[i],
                         sub_chr(frqfile, f"{chrom}{frq_suffix}"),
-                        frq_compression,
+                        frq_compression
                     )
                     for i, fh in enumerate(fh_list)
                 ]
@@ -310,6 +311,7 @@ def __ID_List_Factory__(colnames, keepcol, fname_end, header=None, usecols=None)
             self.n = len(self.df)
 
         def __read__(self, fname):
+            fname = Path(fname)
             end = self.__fname_end__
             if end and fname.suffix != end:
                 raise ValueError("{f} filename must end in {f}".format(f=end))
