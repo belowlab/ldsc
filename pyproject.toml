@@ -1,6 +1,6 @@
 [project]
 name = "ldsc"
-version = "3.0.0"
+version = "3.0.1"
 description = "`ldsc` is a command line tool for estimating heritability and genetic correlation from GWAS summary statistics. `ldsc` also computes LD Scores."
 dependencies = [
     "bitarray==2.6.0",
@@ -20,11 +20,16 @@ dependencies = [
 requires-python = ">=3.9"
 readme = "README.md"
 authors = [
-    {name = "Brendan Bulik-Sullivan"},
-    {name = "Hilary Finucane"},
-    {name = "James Baker", email = "james.baker@vanderbilt.edu"},
+    { name = "Brendan Bulik-Sullivan" },
+    { name = "Hilary Finucane" },
+    { name = "James Baker", email = "james.baker@vanderbilt.edu" },
 ]
-keywords = ["python", "genetics", "genetic correlation", "heritability"]
+keywords = [
+    "python",
+    "genetics",
+    "genetic correlation",
+    "heritability",
+]
 classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3.8",
@@ -57,10 +62,11 @@ dev = [
 distribution = true
 
 [tool.pdm.scripts]
-# If you are going to run the pdm test command, first run pdm simulate to generate the data needed for the tests
 simulate = "python3 simulate.py"
 test = "python3 -m unittest discover -s tests/ -p *.py"
-clean = {shell = "rm tests/simulate_test/*.cov && rm tests/simulate_test/*.delete && rm tests/simulate_test/*.part_delete && rm tests/*.h2_results && rm tests/simulate_test/*h2_results && rm tests/simulate_test/*rg_results && rm tests/simulate_test/ldscore/* && rm tests/simulate_test/sumstats/*"}
+
+[tool.pdm.scripts.clean]
+shell = "rm tests/simulate_test/*.cov && rm tests/simulate_test/*.delete && rm tests/simulate_test/*.part_delete && rm tests/*.h2_results && rm tests/simulate_test/*h2_results && rm tests/simulate_test/*rg_results && rm tests/simulate_test/ldscore/* && rm tests/simulate_test/sumstats/*"
 
 [tool.pdm.build]
 package-dir = "src"

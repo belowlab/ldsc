@@ -1,5 +1,5 @@
 [![Nox](https://img.shields.io/badge/%F0%9F%A6%8A-Nox-D85E00.svg)](https://github.com/wntrblm/nox)[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-# LDSC (LD SCore) `v3.0.0`
+# LDSC (LD SCore) `v3.0.1`
 
 `ldsc` is a command line tool for estimating heritability and genetic correlation from GWAS summary statistics. `ldsc` also computes LD Scores.
 
@@ -39,7 +39,7 @@ This will open the container in an interactive mode. Users can find the scripts 
 ls /app/ldsc/
 ```
 
-### Pip (This is being updated for v3.0.0):
+### Pip (This is being updated for v3.0.0+):
 ldsc is also on PYPI and can be installed by Pip using the following command (It is preferable that the program be installed into a virtual environment created using venv or conda):
 
 ```
@@ -97,7 +97,7 @@ pdm test
 pdm clean
 ```
 
-## Tutorials (This section needs to be updated because the command line API was broken in creating LDSC v3.0.0):
+## Tutorials (This section needs to be updated because the command line API was broken in creating LDSC v3.0.1):
 Short tutorials describing the four basic functions of `ldsc` (estimating LD Scores, h2 and partitioned h2, genetic correlation, the LD Score regression intercept) can be found in the wiki. If you would like to run the tests, please see the wiki.
 
 *warning:* The "make_annot.py" script requires that bedtools be installed. There have been issues when running ldsc on an HPC environment when bedtools has not been detect even when loaded/installed. If this error occurs, it is required to use the docker image to run ldsc.
